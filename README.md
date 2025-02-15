@@ -34,7 +34,8 @@ Per questo esempio è stata utilizzato un estrattore assiale da 200 mm con contr
 <div align="center">
 <img src="immagini/ventolone.jpg" alt="ventolone" width="400">
 </div>
-Il controller manuale è stato automatizzato sostituendolo con un potenziometro domotico [Shelly Plus Dimmer - 0-10 DC0](https://amzn.to/432Y94R).<br>
+
+Il controller manuale è stato automatizzato sostituendolo con un potenziometro domotico [Shelly Plus Dimmer 0-10 DC](https://amzn.to/4hUtlak).<br> 
 Il comando manuale è un semplice potenziometro, per sostituirlo basta aprirlo, tagliare i cavi e metterli nello Shelly. Il cavo rosso andrà nel "-" mentre il bianco nel "+".<br>
 Ovviamente lo shelly va alimentato con la tensione di 230V e si consiglia di usare una linea indipendente che rimane sempre alimentata.<br>
 <div align="center">
