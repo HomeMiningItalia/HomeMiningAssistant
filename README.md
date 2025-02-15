@@ -41,6 +41,7 @@ Nelle impostazioni del dispositivo nell'app "Shelly Smart Control" modificare:<b
 - Impostazioni di ingresso/uscita > Action on power on > configura il dispositivo Shelly per ripristinare l'ultima modalità in cui si trovava, quando è alimentato.<br>
 - Luminosità minima con attivazione/disattivazione > 100.<br>
 - Luminosità minima/massima > nel campo valore minimo bisogna inserire il valore minimo che la ventola supporta senza fermarsi, può variare da ventola a ventola. Il valore 10 generalemte è sufficiente.<br>
+Adesso la ventola è già comandabile attraverso l'app di Shelly da remoto.
 
 ---
 
