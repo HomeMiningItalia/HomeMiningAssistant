@@ -30,32 +30,37 @@ Uso di una **ventola da 200 mm** con convogliatore stampato in 3D per migliorare
 
 ---
 ### Preparare la ventola
-Per questo esempio è stata utilizzato un estrattore assiale da 200 mm con controller manuale [Link](https://amzn.to/3Qj2M2Y).<br>
+Per questo esempio è stata utilizzato un estrattore assiale da 200 mm con controller manuale [Link](https://amzn.to/4gHcs22).<br>
 Il controller manuale è stato automatizzato sostituendolo con un potenziometro domotico [Shelly Plus Dimmer - 0-10 DC](https://amzn.to/432Y94R).<br>
-Il comando manuale è un semplice potenziometro, per sostituirlo basta aprirlo, tagliare i cavi e metterli nello Shelly. Il cavo rosso andrà nel "+" mentre il bianco nel "-".<br>
+Il comando manuale è un semplice potenziometro, per sostituirlo basta aprirlo, tagliare i cavi e metterli nello Shelly. Il cavo rosso andrà nel "-" mentre il bianco nel "+".<br>
 Ovviamente lo shelly va alimentato con la tensione di 230V e si consiglia di usare una linea indipendente che rimane sempre alimentata.<br>
 <div align="center">
 <img src="immagini/Shelly_0-10.jpg" alt="Shelly Plus Dimmer 0-10 DC che controlla ventola" width="400">
 </div>
+Nelle impostazioni del dispositivo nell'app "Shelly Smart Control" modificare:<br>
+- Impostazioni di ingresso/uscita > Action on power on > configura il dispositivo Shelly per ripristinare l'ultima modalità in cui si trovava, quando è alimentato.<br>
+- Luminosità minima con attivazione/disattivazione > 100.<br>
+- Luminosità minima/massima > nel campo valore minimo bisogna inserire il valore minimo che la ventola supporta senza fermarsi, può variare da ventola a ventola. Il valore 10 generalemte è sufficiente.<br>
+Adesso la ventola è già comandabile attraverso l'app di Shelly da remoto.
 
 ---
 
-## 📷 Foto e Modelli 3D
-📌 Aggiungi immagini del setup e link ai modelli 3D per il convogliatore della ventola.
+## Foto e Modelli 3D
+ Aggiungi immagini del setup e link ai modelli 3D per il convogliatore della ventola.
 
 ---
 
-## 📜 Licenza
+##  Licenza
 Questo progetto è rilasciato sotto la licenza **MIT**. Consulta il file [LICENSE](LICENSE) per maggiori dettagli.
 
 ---
 
-## 🔗 Link Utili
+##  Link Utili
 - [Home Assistant](https://www.home-assistant.io/)
 
 ---
 
-## 💬 Contributi e Feedback
+##  Contributi e Feedback
 I contributi sono benvenuti! Se hai suggerimenti o vuoi migliorare il progetto, apri una **issue** o un **pull request** su GitHub.
 
 ---
