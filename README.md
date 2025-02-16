@@ -30,22 +30,51 @@ Uso di una **ventola da 200 mm** con convogliatore stampato in 3D per migliorare
 
 ---
 ### Preparare la ventola
-Per questo esempio è stata utilizzato un estrattore assiale da 200 mm con controller manuale [Link](https://amzn.to/4gHcs22).<br>
-<div align="center">
-<img src="immagini/ventolone.jpg" alt="ventolone" width="400">
-</div>
-
+Per questo esempio è stata utilizzato un estrattore assiale da 200 mm con controller manuale che per comodità chiameremo *ventolone* [Link](https://amzn.to/4gHcs22).<br>
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="immagini/ventolone.jpg" alt="ventolone" width="300"><br>
+      <small>Ventolone da 200mm</small>
+    </td>
+    <td align="center">
+      <img src="immagini/potenziometro.jpg" alt="potenziometro" width="150"><br>
+      <small>Potenziometro manuale</small>
+    </td>
+  </tr>
+</table>
 Il controller manuale è stato automatizzato sostituendolo con un potenziometro domotico [Shelly Plus Dimmer 0-10 DC](https://amzn.to/4hUtlak).<br> 
 Il comando manuale è un semplice potenziometro, per sostituirlo basta aprirlo, tagliare i cavi e metterli nello Shelly. Il cavo rosso andrà nel "-" mentre il bianco nel "+".<br>
 Ovviamente lo shelly va alimentato con la tensione di 230V e si consiglia di usare una linea indipendente che rimane sempre alimentata.<br>
-<div align="center">
-<img src="immagini/Shelly_0-10.jpg" alt="Shelly Plus Dimmer 0-10 DC che controlla ventola" width="400">
-</div>
-Nelle impostazioni del dispositivo nell'app "Shelly Smart Control" modificare:<br>
-- Impostazioni di ingresso/uscita > Action on power on > configura il dispositivo Shelly per ripristinare l'ultima modalità in cui si trovava, quando è alimentato.<br>
-- Luminosità minima con attivazione/disattivazione > 100.<br>
-- Luminosità minima/massima > nel campo valore minimo bisogna inserire il valore minimo che la ventola supporta senza fermarsi, può variare da ventola a ventola. Il valore 10 generalemte è sufficiente.<br>
-Adesso la ventola risulta comandabile attraverso l'app di Shelly da remoto.
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="immagini/potenziometro_aperto.jpg" alt="potenziometro aperto" width="200"><br>
+      <small>Interno del potenziometro</small>
+    </td>
+    <td align="center">
+      <img src="immagini/Shelly_0-10.jpg" alt="Shelly Plus Dimmer 0-10 DC che controlla ventola" width="300"><br>
+      <small>Collegamento Shelly</small>
+    </td>
+  </tr>
+</table>
+Configura il dispositivo nell'app "Shelly Smart Control" chiamandolo "Ventola", ma sappi che nella logica dell'app il nuovo dispositivo viene interpretato come se fosse una lampadina dimmerabile.<br> 
+Vai nelle impostazioni del dispositivo e modifica:
+
+- **Impostazioni di ingresso/uscita** > Action on power on > configura il dispositivo Shelly per ripristinare l'ultima modalità in cui si trovava, quando è alimentato.
+- **Luminosità minima con attivazione/disattivazione** > 100.
+- **Luminosità minima/massima** > nel campo valore minimo bisogna inserire il valore minimo che la ventola supporta senza fermarsi, può variare da ventola a ventola. Il valore 10 generalemte è sufficiente.
+
+Adesso la ventola risulterà comandabile da remoto attraverso l'app Shelly.
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="immagini/screenshot_app_shelly.jpg" alt="Screenshot app Shelly" width="150"><br>
+      <small>Interfaccia app per gestire il ventolone</small>
+    </td>
+  </tr>
+</table>
 
 ---
 
