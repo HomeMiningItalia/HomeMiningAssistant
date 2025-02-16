@@ -1,4 +1,4 @@
-# HomeMiningAssistant
+# 🏡HomeMiningAssistant
 
 **Automazione del mining con Home Assistant e fotovoltaico**
 
@@ -6,7 +6,7 @@ HomeMiningAssistant è un progetto per ottimizzare il mining di Bitcoin **utiliz
 
 ---
 
-## Funzionalità
+## 🚀Funzionalità
 
 **Automazione completa** del mining e della ventilazione con Home Assistant  
 **Integrazione con impianti fotovoltaici** per sfruttare solo l’energia in esubero.  
@@ -14,7 +14,7 @@ Uso di una **ventola da 200 mm** con convogliatore stampato in 3D per migliorare
 
 ---
 
-##  Requisiti
+##  🛠️Requisiti
 
 ### Hardware
 - ASIC per il mining di Bitcoin (ad esempio S19)
@@ -78,18 +78,21 @@ Adesso la ventola risulterà comandabile da remoto attraverso l'app Shelly.
 </table>
 
 ---
+### Integrazione con Home Assistant
+ Una volta installato 
 
-## Foto e Modelli 3D
+---
+## 📷Foto e Modelli 3D
  Aggiungi immagini del setup e link ai modelli 3D per il convogliatore della ventola.
 
 ---
 
-##  Licenza
+## 📜Licenza
 Questo progetto è rilasciato sotto la licenza **MIT**. Consulta il file [LICENSE](LICENSE) per maggiori dettagli.
 
 ---
 
-##  Link Utili
+##  🔗Link Utili
 - [Home Assistant](https://www.home-assistant.io/)
 
 ---
