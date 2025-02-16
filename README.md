@@ -58,11 +58,14 @@ Ovviamente lo shelly va alimentato con la tensione di 230V e si consiglia di usa
     </td>
   </tr>
 </table>
-Nelle impostazioni del dispositivo nell'app "Shelly Smart Control" modificare:<br>
-- Impostazioni di ingresso/uscita > Action on power on > configura il dispositivo Shelly per ripristinare l'ultima modalità in cui si trovava, quando è alimentato.<br>
-- Luminosità minima con attivazione/disattivazione > 100.<br>
-- Luminosità minima/massima > nel campo valore minimo bisogna inserire il valore minimo che la ventola supporta senza fermarsi, può variare da ventola a ventola. Il valore 10 generalemte è sufficiente.<br>
-Adesso la ventola è già comandabile attraverso l'app di Shelly da remoto.
+Configura il dispositivo nell'app "Shelly Smart Control" chiamandolo "Ventola", ma sappi che nella logica dell'app il nuovo dispositivo viene interpretato come se fosse una lampadina dimmerabile.<br> 
+Vai nelle impostazioni del dispositivo e modifica:
+
+- **Impostazioni di ingresso/uscita** > Action on power on > configura il dispositivo Shelly per ripristinare l'ultima modalità in cui si trovava, quando è alimentato.
+- **Luminosità minima con attivazione/disattivazione** > 100.
+- **Luminosità minima/massima** > nel campo valore minimo bisogna inserire il valore minimo che la ventola supporta senza fermarsi, può variare da ventola a ventola. Il valore 10 generalemte è sufficiente.
+
+Adesso la ventola risulterà comandabile da remoto attraverso l'app Shelly.
 <table align="center">
   <tr>
     <td align="center">
