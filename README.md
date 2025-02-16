@@ -29,6 +29,10 @@ Uso di una **ventola da 200 mm** con convogliatore stampato in 3D per migliorare
 - Custom automation per la gestione dell'ASIC e della ventola
 
 ---
+### Firmware ASIC
+Per questo test è stato utilizzato il firmware di [Braiins](https://braiins.com/os-firmware) su un Antminer S19k Pro. E' stato scelto questo firmware perché consente la modalità cosiddetta *immersion mode* che consente di staccare fisicamente le ventole senza far andare in protezione il miner. Inoltre grazie ad [hass-miner](https://github.com/Schnitzel/hass-miner) risulta integrabile su Home Assistant.
+
+---
 ### Preparare la ventola
 Per questo esempio è stata utilizzato un estrattore assiale da 200 mm con controller manuale che per comodità chiameremo *ventolone* [Link](https://amzn.to/4gHcs22).<br>
 <table align="center">
@@ -79,7 +83,24 @@ Adesso la ventola risulterà comandabile da remoto attraverso l'app Shelly.
 
 ---
 ### Integrazione con Home Assistant
- Una volta installato 
+Una volta installata l'integrazione [hass-miner](https://github.com/Schnitzel/hass-miner) ci accorgeremo che c'è una temperatura per ogni hashboard, quindi andiamo a creare un sensore virtuale che prenda il valore massimo.<br>
+Apriamo il file `configuration.yaml` e aggiungiamo il sensore:
+```yaml
+sensor:
+  - platform: template
+    sensors:
+      max_chip_temperature_s19kpro:
+        friendly_name: "Max Chip Temperature S19kPro"
+        unit_of_measurement: "°C"
+        value_template: >
+          {{ [
+              states('sensor.antminer_s19kpro_board_0_chip_temperature') | float(0),
+              states('sensor.antminer_s19kpro_board_1_chip_temperature') | float(0),
+              states('sensor.antminer_s19kpro_board_2_chip_temperature') | float(0)
+             ] | max }}
+        icon_template: mdi:thermometer
+```
+
 
 ---
 ## 📷Foto e Modelli 3D
