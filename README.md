@@ -54,7 +54,7 @@ Ovviamente lo shelly va alimentato con la tensione di 230V e si consiglia di usa
     </td>
     <td align="center">
       <img src="immagini/Shelly_0-10.jpg" alt="Shelly Plus Dimmer 0-10 DC che controlla ventola" width="300"><br>
-      <small>Potenziometro manuale</small>
+      <small>Collegamento Shelly</small>
     </td>
   </tr>
 </table>
