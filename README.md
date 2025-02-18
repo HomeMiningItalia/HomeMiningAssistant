@@ -195,7 +195,23 @@ Arrivati a questo punto vi consiglio la creazione di una dashboard personalizzat
   </tr>
 </table>
 
+Di seguito due screen che mostrano la comparazione tra velocità della ventola e temperatura dei chip in un intervallo di 24 ore.
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="immagini/max_temperature_chip.JPG" alt="screen temperatura massima chip" width="500"><br>
+      <small>Temperatura chip 24 ore</small>
+    </td>
+    <td align="center">
+      <img src="immagini/fan_speed_24h.JPG" alt="velocità ventola" width="500"><br>
+      <small>Velocità ventola 24 ore</small>
+    </td>
+  </tr>
+</table>
+
 ---
+
 ## 📷Foto e Modelli 3D
  Aggiungi immagini del setup e link ai modelli 3D per il convogliatore della ventola.
 
