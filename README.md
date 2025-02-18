@@ -83,24 +83,117 @@ Adesso la ventola risulterà comandabile da remoto attraverso l'app Shelly.
 
 ---
 ### Integrazione con Home Assistant
-Una volta installata l'integrazione [hass-miner](https://github.com/Schnitzel/hass-miner) ci accorgeremo che c'è una temperatura per ogni hashboard, quindi andiamo a creare un sensore virtuale che prenda il valore massimo.<br>
-Apriamo il file `configuration.yaml` e aggiungiamo il sensore:
+Una volta installata l'integrazione [hass-miner](https://github.com/Schnitzel/hass-miner) aggiungiamo il nostro dispositivo, in questo caso `Antminer_s19kpro`. Ci accorgeremo che c'è una temperatura per i chip di ogni hashboard, ma a noi interessa solo quella più alta, quindi andiamo a creare un sensore virtuale che ci restituisce solo il valore massimo.<br>
+Apriamo il file `configuration.yaml` e aggiungiamo il sensore ricordando di sostituire `antminer_s19kpro` con il nome che avete assegnato al vostro dispositivo:
 ```yaml
 sensor:
   - platform: template
     sensors:
-      max_chip_temperature_s19kpro:
-        friendly_name: "Max Chip Temperature S19kPro"
+      max_chip_temperature_s19kpro: # Nome del sensore, attenzione alle maiuscole e agli spazi
+        friendly_name: "Max Chip Temperature S19kPro" # Nome visualizzato nella dashboard
         unit_of_measurement: "°C"
         value_template: >
           {{ [
-              states('sensor.antminer_s19kpro_board_0_chip_temperature') | float(0),
+              states('sensor.antminer_s19kpro_board_0_chip_temperature') | float(0), 
               states('sensor.antminer_s19kpro_board_1_chip_temperature') | float(0),
               states('sensor.antminer_s19kpro_board_2_chip_temperature') | float(0)
              ] | max }}
         icon_template: mdi:thermometer
 ```
+Adesso dobbiamo creare un sensore che faccia comandare il ventolone come se fosse una luce dimmerabile. Nel codice ho incluso `sensor` solo per comodità, ma in realtà tutti i sensori andranno sotto un unico `sensor` stando attenti a come viene incolonnato il codice.<br>
+Attenzione al nome che viene assegnato allo Shelly: in questo caso è `shellyplus010v_cc7b5c88a905` ma il vostro sarà per forza diverso.
+```yaml
+sensor:
+  - platform: template
+    sensors:
+      fan_speed:
+        friendly_name: "Fan Speed (Brightness)" # La velocità verrà trattata come un'intensità di luce
+        unit_of_measurement: "%"
+        value_template: >
+          {% if states.light.shellyplus010v_cc7b5c88a905_light_0.attributes.brightness is defined %}
+            {{ (states.light.shellyplus010v_cc7b5c88a905_light_0.attributes.brightness / 255 * 100) | round(0) }}
+          {% else %}
+            0
+          {% endif %}
+```
 
+Adesso passiamo all'automazione vera e propria.
+Questa automazione ha diverse funzioni:
+
+- Viene impostata una temperatura target di 65°C e la ventola si regolerà di conseguenza per tenere sempre quella temperatura
+- Se la temperatura dei chip supera i 68°C (temperatura critica) la ventola passa in automatico al massimo della velocità sino a quando non scende sotto la soglia.
+- La ventola non scenderà mai sotto il 5% della velocità
+
+Per determinare la velocità minima bisogna fare il calcolo `(255/100)*temperatura_minima` ed arrotondare per eccesso al numero intero.<br>
+Esempio: per impostare una velocità del 10% dovete fare `(255/100)*10=25.5` quindi il valore che andrò ad inserire sarà `26`.<br>
+
+
+```yaml
+automation:
+  - alias: "Regola dinamicamente la velocità della ventola per mantenere 65°C"
+    description: "Adatta la velocità della ventola per mantenere la temperatura a 65°C, ma va al 100% se la temperatura supera i 68°C"
+    trigger:
+      - platform: state
+        entity_id: sensor.max_chip_temperature_s19kpro # Verificare il nome della tua entità
+    condition: []
+    action:
+      - variables:
+          current_temp: "{{ states('sensor.max_chip_temperature_s19kpro') | float(0) }}" # Verificare il nome della tua entità
+          target_temp: 65 # Valore del target tella temperatura, può essere modificato
+          max_speed: 255
+          min_speed: 13 # Velocità minima
+          current_speed: "{{ state_attr('light.shellyplus010v_cc7b5c88a904_light_0', 'brightness') | float(50)  # Verificare il nome della tua entità
+      - service: notify.notify
+        data:
+          message: >
+            Temperatura attuale: {{ current_temp }},
+            Velocità corrente: {{ current_speed }},
+            Nuova velocità calcolata: >
+              {{ [(current_speed - ((target_temp - current_temp) * 5)) | int, min_speed] | max }}
+      - choose:
+          # Se la temperatura è critica (> 68°C), imposta la ventola al massimo (100%)
+          - conditions:
+              - condition: template
+                value_template: "{{ current_temp > 68 }}" # potete cambiare il 68 con la vostra temperatura critica
+            sequence:
+              - service: light.turn_on
+                target:
+                  entity_id: light.shellyplus010v_cc7b5c88a904_light_0 # Verificare il nome della tua entità
+                data:
+                  brightness: "{{ max_speed }}"
+          # Se la temperatura è sopra il target ma inferiore a 68°C, aumenta la velocità
+          - conditions:
+              - condition: template
+                value_template: "{{ current_temp > target_temp and current_temp <= 68 }}"
+            sequence:
+              - service: light.turn_on
+                target:
+                  entity_id: light.shellyplus010v_cc7b5c88a904_light_0 # Verificare il nome della tua entità
+                data:
+                  brightness: >
+                    {{ [(current_speed + ((current_temp - target_temp) * 5)) | int, max_speed] | min }}
+          # Se la temperatura è sotto il target, diminuisci la velocità
+          - conditions:
+              - condition: template
+                value_template: "{{ current_temp < target_temp }}"
+            sequence:
+              - service: light.turn_on
+                target:
+                  entity_id: light.shellyplus010v_cc7b5c88a904_light_0 # Verificare il nome della tua entità
+                data:
+                  brightness: >
+                    {{ [(current_speed - ((target_temp - current_temp) * 5)) | int, min_speed] | max }}
+    mode: single
+```
+Arrivati a questo punto vi consiglio la creazione di una dashboard personalizzata dove potete anche attivare o disattivare l'automazione e controllare la ventola:
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="immagini/plancia_personalizzata.JPG" alt="Planciapersonalizzata" width="300"><br>
+      <small>Dashboard personalizzata per controllo ventolone</small>
+    </td>
+  </tr>
+</table>
 
 ---
 ## 📷Foto e Modelli 3D
