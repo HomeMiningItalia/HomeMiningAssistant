@@ -124,8 +124,8 @@ Questa automazione ha diverse funzioni:
 - Se la temperatura dei chip supera i 68°C (temperatura critica) la ventola passa in automatico al massimo della velocità sino a quando non scende sotto la soglia.
 - La ventola non scenderà mai sotto il 5% della velocità
 
-Per determinare la velocità minima bisogna fare il calcolo (255/100)*temperatura_minima ed arrotondare per eccesso al numero intero.<br>
-Esempio: per impostare una velocità del 10% dovete fare (255/100)*10=25.5 quindi il valore che andrò ad inserire sarà 26.<br>
+Per determinare la velocità minima bisogna fare il calcolo `(255/100)*temperatura_minima` ed arrotondare per eccesso al numero intero.<br>
+Esempio: per impostare una velocità del 10% dovete fare `(255/100)*10=25.5` quindi il valore che andrò ad inserire sarà `26`.<br>
 
 
 ```yaml
@@ -189,8 +189,8 @@ Arrivati a questo punto vi consiglio la creazione di una dashboard personalizzat
 <table align="center">
   <tr>
     <td align="center">
-      <img src="immagini/plancia_ventolone.jpg" alt="Plancia ventolone" width="150"><br>
-      <small>Dashboard personalizzata</small>
+      <img src="immagini/plancia_personalizzata.JPG" alt="Planciapersonalizzata" width="300"><br>
+      <small>Dashboard personalizzata per controllo ventolone</small>
     </td>
   </tr>
 </table>
