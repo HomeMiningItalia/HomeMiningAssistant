@@ -142,7 +142,7 @@ automation:
           target_temp: 65 # Valore del target tella temperatura, può essere modificato
           max_speed: 255
           min_speed: 13 # Velocità minima
-          current_speed: "{{ state_attr('light.shellyplus010v_cc7b5c88a904_light_0', 'brightness') | float(50)  # Verificare il nome della tua entità
+          current_speed: "{{ state_attr('light.shellyplus010v_cc7b5c88a905_light_0', 'brightness') | float(50)  # Verificare il nome della tua entità
       - service: notify.notify
         data:
           message: >
@@ -158,7 +158,7 @@ automation:
             sequence:
               - service: light.turn_on
                 target:
-                  entity_id: light.shellyplus010v_cc7b5c88a904_light_0 # Verificare il nome della tua entità
+                  entity_id: light.shellyplus010v_cc7b5c88a905_light_0 # Verificare il nome della tua entità
                 data:
                   brightness: "{{ max_speed }}"
           # Se la temperatura è sopra il target ma inferiore a 68°C, aumenta la velocità
@@ -168,7 +168,7 @@ automation:
             sequence:
               - service: light.turn_on
                 target:
-                  entity_id: light.shellyplus010v_cc7b5c88a904_light_0 # Verificare il nome della tua entità
+                  entity_id: light.shellyplus010v_cc7b5c88a905_light_0 # Verificare il nome della tua entità
                 data:
                   brightness: >
                     {{ [(current_speed + ((current_temp - target_temp) * 5)) | int, max_speed] | min }}
@@ -179,7 +179,7 @@ automation:
             sequence:
               - service: light.turn_on
                 target:
-                  entity_id: light.shellyplus010v_cc7b5c88a904_light_0 # Verificare il nome della tua entità
+                  entity_id: light.shellyplus010v_cc7b5c88a905_light_0 # Verificare il nome della tua entità
                 data:
                   brightness: >
                     {{ [(current_speed - ((target_temp - current_temp) * 5)) | int, min_speed] | max }}
